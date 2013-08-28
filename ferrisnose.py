@@ -15,9 +15,9 @@ class FerrisNose(Plugin):
         super(FerrisNose, self).options(parser, env=env)
 
         parser.add_option(
-            '--gae-lib-path', default='/usr/local/google_appengine',
-            dest='gae_lib_path',
-            help='Set the path to the directory of the GAE SDK installation')
+            '--gae-sdk-path', default=env.get('APPENGINE_SDK_PATH', '/usr/local/google_appengine'),
+            dest='gae_sdk_path',
+            help='Set the path to the directory of the App Engine SDK installation (you can also use the APPENGINE_SDK_PATH environment variable)')
 
     def configure(self, options, conf):
         super(FerrisNose, self).configure(options, conf)
@@ -25,15 +25,15 @@ class FerrisNose(Plugin):
         if not self.enabled:
             return
 
-        # Load the app engine path into sys
-        if options.gae_lib_path:
-            self.gae_path = options.gae_lib_path
-            sys.path.append(self.gae_path)
+        self.gae_path = options.gae_sdk_path
 
         self._setup_path()
         self._setup_testbed()
 
     def _setup_path(self):
+        # Load the app engine path into sys
+        sys.path.append(self.gae_path)
+
         # store the current path
         current_path = sys.path[:]
 
