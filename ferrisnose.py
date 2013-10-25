@@ -62,6 +62,7 @@ class FerrisNose(Plugin):
 
         # Remove agressive logging
         rootLogger = logging.getLogger()
+        rootLogger.setLevel(logging.INFO)
         for handler in rootLogger.handlers:
             if isinstance(handler, logging.StreamHandler):
                 rootLogger.removeHandler(handler)
