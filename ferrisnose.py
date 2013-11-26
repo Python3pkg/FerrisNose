@@ -56,9 +56,14 @@ class FerrisNose(Plugin):
     def _setup_testbed(self):
         # Activate a testbed so that httplib2 always knows that it's in app engine
         from google.appengine.ext import testbed
-        testbed = testbed.Testbed()
-        testbed.activate()
-        testbed.init_urlfetch_stub()
+        from google.appengine.datastore import datastore_stub_util
+        self.testbed = testbed.Testbed()
+        self.testbed.activate()
+        policy = datastore_stub_util.PseudoRandomHRConsistencyPolicy(probability=1)
+        self.testbed.init_datastore_v3_stub(consistency_policy=policy)
+        self.testbed.init_urlfetch_stub()
+        self.testbed.init_memcache_stub()
+        self.testbed.init_logservice_stub()
 
         # Remove agressive logging
         rootLogger = logging.getLogger()
@@ -66,3 +71,9 @@ class FerrisNose(Plugin):
         for handler in rootLogger.handlers:
             if isinstance(handler, logging.StreamHandler):
                 rootLogger.removeHandler(handler)
+
+    def beforeTest(self, test):
+        try:
+            self.testbed.deactivate()
+        except:
+            pass
