@@ -5,7 +5,7 @@ import re
 
 from nose.plugins import Plugin
 
-log = logging.getLogger('nose.plugins.nosegunit')
+log = logging.getLogger('nose.plugins.ferrisnose')
 
 
 class FerrisNose(Plugin):
@@ -25,10 +25,20 @@ class FerrisNose(Plugin):
         if not self.enabled:
             return
 
+        if not conf.testNames:
+            log.warning('No test paths specified assuming app/tests')
+            conf.testNames.append('app/tests')
+
         self.gae_path = options.gae_sdk_path
 
+        self._check_path()
         self._setup_path()
         self._setup_testbed()
+
+    def _check_path(self):
+        wd = os.getcwd()
+        if not os.path.exists(os.path.join(wd, 'app.yaml')):
+            raise ValueError('No app.yaml found. Ferrisnose must be run from the root of your application.')
 
     def _setup_path(self):
         # Load the app engine path into sys
