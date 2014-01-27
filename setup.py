@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 
 setup(
     name="FerrisNose",
@@ -10,7 +10,7 @@ setup(
     maintainer='Jon Parrott',
     maintainer_email='jjramone13@gmail.com',
     description='nose plugin for bootstrapping the GAE SDK and GAE Testbed for the Ferris Framework',
-    url='https://bitbucket.org/jonparrott/ferris-nose',
+    url='https://bitbucket.org/jonparrott/ferrisnose',
     license='Apache License 2.0',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -23,5 +23,5 @@ setup(
         ]
     },
     py_modules=['ferrisnose'],
-    install_requires=['nose>=0.10.1'],
+    install_requires=['nose>=0.10.1', 'PIP', 'google-api-python-client', 'oauth2client'],
 )
