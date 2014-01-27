@@ -37,6 +37,12 @@ class FerrisNose(Plugin):
         # store the current path
         current_path = sys.path[:]
 
+        # Try to import the app server
+        try:
+            import dev_appserver
+        except ImportError:
+            raise ValueError("Could not locate the App Engine SDK. Please provide the SDK path using the --gae-sdk-path argument or set the APPENGINE_SDK_PATH environment variable.")
+
         # make appengine load its libraries
         from dev_appserver import fix_sys_path
         fix_sys_path()
