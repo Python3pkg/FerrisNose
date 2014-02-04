@@ -3,7 +3,6 @@ import os
 import sys
 
 from nose.plugins import Plugin
-from .testbed import SimpleTestBed
 
 log = logging.getLogger('nose.plugins.ferrisnose')
 
@@ -68,6 +67,7 @@ class FerrisNose(Plugin):
 
     def _setup_testbed(self):
         # Activate a testbed during test discovery
+        from .testbed import SimpleTestBed
         self.testbed = SimpleTestBed()
         self.testbed.activate()
 
