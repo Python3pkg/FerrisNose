@@ -3,7 +3,7 @@ Ferris Nose
 
 A nose plugin for testing Google App Engine applications. Built for the [Ferris Framework](http://ferrisframework.org) but can be used for testing any app engine application.
 
-Originally based on [nose-gunit](https://github.com/beaulyddon-wf/nose-gunit)/
+Originally based on [nose-gunit](https://github.com/beaulyddon-wf/nose-gunit).
 
 
 Running Tests
@@ -27,7 +27,7 @@ Writing Tests
 
 For Ferris apps, see the [testing documentation](http://ferris-framework.appspot.com/docs/users_guide/testing.html).
 
-For non-Ferris apps, create your test cases an inherit from ``ferrisnose.AppEngineTest``:
+For non-Ferris apps, create your test cases and inherit from ``ferrisnose.AppEngineTest``:
 
     from ferrisnose import AppEngineTest
 
