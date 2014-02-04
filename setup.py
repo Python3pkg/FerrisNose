@@ -19,9 +19,9 @@ setup(
     ],
     entry_points={
         'nose.plugins.0.10': [
-            'ferris = ferrisnose:FerrisNose'
+            'ferris = ferrisnose.plugin:FerrisNose'
         ]
     },
-    py_modules=['ferrisnose'],
+    packages=['ferrisnose'],
     install_requires=['nose>=0.10.1', 'PIP', 'google-api-python-client', 'oauth2client'],
 )
