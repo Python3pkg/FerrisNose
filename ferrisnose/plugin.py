@@ -1,9 +1,9 @@
 import logging
 import os
 import sys
-import re
 
 from nose.plugins import Plugin
+from .testbed import SimpleTestBed
 
 log = logging.getLogger('nose.plugins.ferrisnose')
 
@@ -34,6 +34,7 @@ class FerrisNose(Plugin):
         self._check_path()
         self._setup_path()
         self._setup_testbed()
+        self._setup_logging()
 
     def _check_path(self):
         wd = os.getcwd()
@@ -54,11 +55,7 @@ class FerrisNose(Plugin):
             raise ValueError("Could not locate the App Engine SDK. Please provide the SDK path using the --gae-sdk-path argument or set the APPENGINE_SDK_PATH environment variable.")
 
         # make appengine load its libraries
-        from dev_appserver import fix_sys_path
-        fix_sys_path()
-
-        # Fix library versions
-        sys.path = [re.sub('webob_0_9', 'webob_1_1_1', x) for x in sys.path]
+        dev_appserver.fix_sys_path()
 
         # Reload the google module
         if 'google' in sys.modules:
@@ -70,17 +67,11 @@ class FerrisNose(Plugin):
         sys.path.append(os.getcwd())
 
     def _setup_testbed(self):
-        # Activate a testbed so that httplib2 always knows that it's in app engine
-        from google.appengine.ext import testbed
-        from google.appengine.datastore import datastore_stub_util
-        self.testbed = testbed.Testbed()
+        # Activate a testbed during test discovery
+        self.testbed = SimpleTestBed()
         self.testbed.activate()
-        policy = datastore_stub_util.PseudoRandomHRConsistencyPolicy(probability=1)
-        self.testbed.init_datastore_v3_stub(consistency_policy=policy)
-        self.testbed.init_urlfetch_stub()
-        self.testbed.init_memcache_stub()
-        self.testbed.init_logservice_stub()
 
+    def _setup_logging(self):
         # Remove agressive logging
         rootLogger = logging.getLogger()
         rootLogger.setLevel(logging.INFO)
@@ -89,7 +80,5 @@ class FerrisNose(Plugin):
                 rootLogger.removeHandler(handler)
 
     def beforeTest(self, test):
-        try:
-            self.testbed.deactivate()
-        except:
-            pass
+        # Turn off the internal testbed before running a test.
+        self.testbed.deactivate()
