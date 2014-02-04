@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '2.0.1'
+VERSION = '2.1.0'
 
 setup(
     name="FerrisNose",
@@ -9,7 +9,7 @@ setup(
     author_email='jjramone13@gmail.com',
     maintainer='Jon Parrott',
     maintainer_email='jjramone13@gmail.com',
-    description='nose plugin for bootstrapping the GAE SDK and GAE Testbed for the Ferris Framework',
+    description='Nose plugin for testing Google App Engine application. Designed for the Ferris Framework but should work for any App Engine app.',
     url='https://bitbucket.org/jonparrott/ferrisnose',
     license='Apache License 2.0',
     classifiers=[
