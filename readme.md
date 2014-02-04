@@ -5,6 +5,13 @@ A nose plugin for testing Google App Engine applications. Built for the [Ferris 
 
 Originally based on [nose-gunit](https://github.com/beaulyddon-wf/nose-gunit).
 
+Installation
+------------
+
+Install the latest version via pip:
+
+    (sudo) pip install --upgrade ferrinose
+
 
 Running Tests
 -------------
