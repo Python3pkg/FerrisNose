@@ -7,6 +7,7 @@ from google.appengine.ext import deferred
 import base64
 import tempfile
 import os
+import logging
 
 
 class SimpleTestBed(object):
@@ -54,7 +55,12 @@ class FullTestBed(object):
         self.testbed.init_taskqueue_stub(
             root_path=os.path.abspath(os.getcwd()))
         self.testbed.init_blobstore_stub()
-        self.testbed.init_images_stub()
+
+        try:
+            self.testbed.init_images_stub()
+        except:
+            logging.info("PIL couldn't be loaded so you can't test with the images service.")
+
         self.testbed.init_logservice_stub()
         self.testbed.init_mail_stub()
         self.testbed.init_urlfetch_stub()
