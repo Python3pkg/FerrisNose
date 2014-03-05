@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '2.1.2'
+VERSION = '2.1.3'
 
 setup(
     name="FerrisNose",
@@ -23,5 +23,12 @@ setup(
         ]
     },
     packages=['ferrisnose'],
-    install_requires=['nose>=0.10.1', 'google-api-python-client', 'oauth2client', 'webtest', 'protobuf', 'protorpc'],
+    install_requires=[
+        'nose>=1.3.0',
+        'google-api-python-client>=1.2.0',
+        'oauth2client>=1.2.0',
+        'webtest',
+        'protobuf>=2.4.0',
+        'protorpc>=0.9.0',
+    ],
 )
