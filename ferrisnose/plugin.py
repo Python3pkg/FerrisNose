@@ -33,6 +33,7 @@ class FerrisNose(Plugin):
         self._check_path()
         self._setup_path()
         self._setup_testbed()
+        self._setup_gae_config()
         self._setup_logging()
 
     def _check_path(self):
@@ -70,6 +71,15 @@ class FerrisNose(Plugin):
         from .testbed import SimpleTestBed
         self.testbed = SimpleTestBed()
         self.testbed.activate()
+
+    def _setup_gae_config(self):
+        # Import appengine config
+        try:
+            import appengine_config
+            logging.info("appengine_config.py loaded")
+        except:
+            logging.info("Failed to load appengine_config.py")
+            pass
 
     def _setup_logging(self):
         # Remove agressive logging

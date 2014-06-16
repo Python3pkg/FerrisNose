@@ -23,7 +23,7 @@ class AppEngineTest(unittest.TestCase):
     login_user = loginUser
 
     def runDeferredTasks(self, queue='default'):
-        self.testbed.run_deferred_tasks(self, queue)
+        self.testbed.run_deferred_tasks(queue)
 
     run_deferred_tasks = runDeferredTasks
 
