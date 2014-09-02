@@ -14,7 +14,7 @@ class FerrisNose(Plugin):
         super(FerrisNose, self).options(parser, env=env)
 
         parser.add_option(
-            '--gae-sdk-path', default=env.get('APPENGINE_SDK_PATH', '/usr/local/google_appengine'),
+            '--gae-sdk-path', default=env.get('APPENGINE_SDK_PATH', os.path.expanduser('~/google-cloud-sdk/platform/google_appengine')),
             dest='gae_sdk_path',
             help='Set the path to the directory of the App Engine SDK installation (you can also use the APPENGINE_SDK_PATH environment variable)')
 
@@ -39,7 +39,7 @@ class FerrisNose(Plugin):
     def _check_path(self):
         wd = os.getcwd()
         if not os.path.exists(os.path.join(wd, 'app.yaml')):
-            raise ValueError('No app.yaml found. Ferrisnose must be run from the root of your application.')
+            log.warning("No app.yaml found, this could lead to problems.")
 
     def _setup_path(self):
         # Load the app engine path into sys
