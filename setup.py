@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '2.1.5'
+VERSION = '2.1.6'
 
 setup(
     name="FerrisNose",
@@ -28,7 +28,6 @@ setup(
         'google-api-python-client>=1.2.0',
         'oauth2client>=1.2.0',
         'webtest',
-        'protobuf>=2.4.0',
         'protorpc>=0.9.0',
     ],
 )
