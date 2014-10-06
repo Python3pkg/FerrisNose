@@ -35,14 +35,17 @@ For Ferris apps, see the [testing documentation](http://ferris-framework.appspot
 
 For non-Ferris apps, create your test cases and inherit from ``ferrisnose.AppEngineTest``:
 
-    from ferrisnose import AppEngineTest
 
-    class TestPosts(AppEngineTest):
-        def test_creation(self):
-            post = Post(title="Hello!")
-            post.put()
+```python
+from ferrisnose import AppEngineTest
 
-            assert Post.query().count() == 1
+class TestPosts(AppEngineTest):
+    def test_creation(self):
+        post = Post(title="Hello!")
+        post.put()
+
+        assert Post.query().count() == 1
+```
 
 You can log-in users using the ``self.login_user(email, admin=False)`` and run deferred tasks using ``self.run_deferred_tasks(queue='default'``.
 
