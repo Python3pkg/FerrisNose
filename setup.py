@@ -10,7 +10,7 @@ setup(
     maintainer='Jon Parrott',
     maintainer_email='jon.wayne.parrott@gmail.com',
     description='Nose plugin for testing Google App Engine application. Designed for the Ferris Framework but should work for any App Engine app.',
-    url='https://bitbucket.org/jonparrott/ferrisnose',
+    url='https://github.com/jonparrott/FerrisNose',
     license='Apache License 2.0',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
