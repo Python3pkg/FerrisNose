@@ -50,7 +50,12 @@ class AppEngineWebTest(AppEngineTest):
     def add_route(self, r):
         self.testapp.app.router.add(r)
 
+    def add_routes(self, rs):
+        for n in rs:
+            self.add_route(n)
+
     addRoute = add_route
+    addRoutes = add_routes
 
 
 class FerrisAppTest(AppEngineTest):
