@@ -64,7 +64,7 @@ class FerrisNose(Plugin):
 
         # Restore the path and add the current directory to the path
         sys.path.extend(current_path)
-        sys.path.append(os.getcwd())
+        sys.path.insert(0, os.getcwd())
 
     def _setup_testbed(self):
         # Activate a testbed during test discovery
