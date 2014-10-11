@@ -1,5 +1,6 @@
 import unittest
 import webtest
+import os
 
 
 class AppEngineTest(unittest.TestCase):
@@ -69,3 +70,56 @@ class FerrisAppTest(AppEngineTest):
         import main
         reload(main)
         self.testapp = webtest.TestApp(main.main_app)
+
+
+class EndpointsTest(AppEngineTest):
+    """
+    Provides an environment for testing Google Cloud Endpoints Services.
+    """
+    def setUp(self):
+        super(EndpointsTest, self).setUp()
+        self._services = []
+        self._testapp = None
+
+    def add_service(self, *args):
+        """
+        Add the given service(s) to the testbed.
+
+        .. note::
+            No additional services can be added after getting the testapp
+        """
+        if self._testapp:
+            raise ValueError("Can not add a service after the testapp has been created.")
+        self._services.extend(args)
+
+    addService = add_service
+
+    @property
+    def testapp(self):
+        """
+        Get the testapp created from the added endpoint services. Typically it's not necessary
+        to access this directly, instead, you would use :func:`invoke`.
+        """
+        if not self._testapp:
+            import endpoints
+            api_server = endpoints.api_server(self._services, restricted=False)
+            self._testapp = webtest.TestApp(api_server)
+        return self._testapp
+
+    def invoke(self, service_and_method, data=None):
+        """
+        Call an endpoint service method with the provided data. This will return the result
+        of the method as a dictionary.
+
+        Example::
+            result = self.invoke('GuestbookService.insert', {'content': 'Hello!'})
+            assert result['content'] == 'Hello!'
+        """
+
+        if not data:
+            data = {}
+        return self.testapp.post_json('/_ah/spi/' + service_and_method, data).json
+
+    def login(self, email):
+        os.environ['ENDPOINTS_AUTH_EMAIL'] = email
+        os.environ['ENDPOINTS_AUTH_DOMAIN'] = 'gmail'

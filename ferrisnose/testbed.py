@@ -45,7 +45,8 @@ class FullTestBed(object):
     def activate(self):
         self.testbed.setup_env(
             AUTH_DOMAIN='gmail.com',
-            APPLICATION_ID='_')
+            APPLICATION_ID='testbed',
+            CURRENT_VERSION_ID='testbed.version')
 
         self.testbed.activate()
         self.testbed.init_memcache_stub()

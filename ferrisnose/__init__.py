@@ -1,1 +1,1 @@
-from utilities import AppEngineTest, FerrisAppTest, AppEngineWebTest
+from utilities import AppEngineTest, FerrisAppTest, AppEngineWebTest, EndpointsTest
