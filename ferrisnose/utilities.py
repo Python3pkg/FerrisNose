@@ -106,10 +106,11 @@ class EndpointsTest(AppEngineTest):
             self._testapp = webtest.TestApp(api_server)
         return self._testapp
 
-    def invoke(self, service_and_method, data=None):
+    def invoke(self, service_and_method, data=None, **kwargs):
         """
         Call an endpoint service method with the provided data. This will return the result
-        of the method as a dictionary.
+        of the method as a dictionary. This accepts additional parameters as
+        post_json method from webtest.
 
         Example::
             result = self.invoke('GuestbookService.insert', {'content': 'Hello!'})
@@ -118,7 +119,9 @@ class EndpointsTest(AppEngineTest):
 
         if not data:
             data = {}
-        return self.testapp.post_json('/_ah/spi/' + service_and_method, data).json
+        return self.testapp.post_json(
+            '/_ah/spi/' + service_and_method, data, **kwargs
+        ).json
 
     def login(self, email):
         os.environ['ENDPOINTS_AUTH_EMAIL'] = email
