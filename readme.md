@@ -10,7 +10,7 @@ Installation
 
 Install the latest version via pip:
 
-    (sudo) pip install --upgrade ferrinose
+    (sudo) pip install --upgrade ferrisnose
 
 Running Tests
 -------------
